@@ -28,7 +28,7 @@ html, body {
     padding: 20px;
 }
 
-.auto-search-wrapper {
+.auto-search-wrapper, .auto-search-wrapper * {
     font-family: 'Gunnar Regular';    
 }
 
