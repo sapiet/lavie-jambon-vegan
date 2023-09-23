@@ -1,0 +1,71 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+  font-family: "Gunnar Regular";
+  src: url("/Gunnar-Regular.ttf");
+}
+
+#header {
+    height: 78px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#page-container {
+    display: flex;
+    height: calc(100vh - 78px);
+}
+
+#aside {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: #b1d4f0;
+    padding: 20px;
+}
+
+.auto-search-wrapper {
+    font-family: 'Gunnar Regular';    
+}
+
+#search {
+    border-radius: 10px;
+}
+
+#locations {
+    overflow: auto;
+}
+
+.location {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 6px 10px 6px 23px;
+    font-family: 'Gunnar Regular';
+    font-size: 18px;
+    color: #0a0a0a;
+    text-decoration: none;
+}
+
+.location-details {
+    color: #9f9f9f;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.location-distance {
+    margin-left: auto;
+    margin-top: auto;
+    font-size: 12px;
+    color: #5ec4ec;
+}
+
+#map {
+    height: 100%;
+    width: 70%;
+}
