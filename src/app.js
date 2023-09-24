@@ -1,6 +1,12 @@
 import logo from '/logo.svg'
 import productImage from '/product.jpg'
 
+let webPath = window.location.pathname;
+
+if (webPath[webPath.length - 1] !== '/') {
+    webPath += '/';
+}
+
 var map;
 
 var icon = L.icon({
@@ -29,7 +35,7 @@ const display = (items) => {
 }
 
 const getLocations = () => {
-    return fetch('locations.json').then(response => response.json());
+    return fetch(`${webPath}locations.json`).then(response => response.json());
 }
 
 const initMap = () => {

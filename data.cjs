@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
 const cliProgress = require('cli-progress');
-require('dotenv').config();
+require('dotenv').config({ path: `.env.data`});
 
 const spreadsheetId = '1-bkow6bkqCSSgEeWeV9x-ZgOImEDx4JlojIumZLRLRA'
 
