@@ -8,6 +8,24 @@ html, body {
   src: url("Gunnar-Regular.ttf");
 }
 
+#loader {
+    position: fixed;
+    top: 78px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+#spinner {
+    color: #b1d4f0;
+    font-size: 64px;
+}
+
 #header {
     height: 78px;
     display: flex;
@@ -30,6 +48,22 @@ html, body {
     width: 30%;
     background-color: #b1d4f0;
     padding: 20px;
+    box-sizing: border-box;
+}
+
+#search-container {
+    display: flex;
+}
+
+#geolocate-me {
+    color: #5ec4ec;
+    font-size: 18px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 22px;
+    min-width: 45px;
+    background-color: white;
+    cursor: pointer;
 }
 
 .auto-search-wrapper, .auto-search-wrapper * {
@@ -72,4 +106,20 @@ html, body {
 #map {
     height: 100%;
     width: 70%;
+}
+
+@media only screen and (max-width: 800px) {
+    #page-container {
+        flex-direction: column;
+    }
+
+    #aside {
+        height: calc(55vh - 39px);
+        width: 100%;
+    }
+
+    #map {
+        height: calc(45vh - 39px);
+        width: 100%;
+    }
 }

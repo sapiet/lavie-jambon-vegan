@@ -11,10 +11,15 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/css/autocomplete.min.css"
   />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <div id="main-container">
+    <div id="loader" v-if="loading">
+      <i class="fa-solid fa-circle-notch fa-spin" id="spinner"></i>
+    </div>
+
     <div id="header">
       <a href="">
         <img width="97" height="58" src="https://www.laviefoods.com/wp-content/uploads/2021/10/logo-la-vie.svg">        
@@ -27,14 +32,20 @@
 
     <div id="page-container">
       <div id="aside">
-        <div class="auto-search-wrapper">
-          <input
-            type="text"
-            autocomplete="off"
-            id="search"
-            class="full-width"
-            placeholder="Chercher par ville"
-          />
+        <div id="search-container">
+          <div class="auto-search-wrapper">
+            <input
+              type="text"
+              autocomplete="off"
+              id="search"
+              class="full-width"
+              placeholder="Chercher par ville"
+            />
+          </div>
+
+          <button id="geolocate-me" type="button" v-if="geolocationActivated" @click="geolocate">
+            <i class="fa-solid fa-location-crosshairs"></i>
+          </button>
         </div>
 
         <div id="locations">
@@ -43,8 +54,14 @@
               {{ location.name }}
 
               <div class="location-details">
-                {{ location.departmentNumber }} -
-                {{ location.city }}
+                <span v-if="location.link">
+                  Visiter le site web
+                </span>
+
+                <span v-else>
+                  {{ location.departmentNumber.toString().length === 1 ? '0' : '' }}{{ location.departmentNumber }} -
+                  {{ location.city }}
+                </span>
               </div>
             </div>
 

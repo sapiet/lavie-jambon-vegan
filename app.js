@@ -43,6 +43,8 @@ const { createApp, ref } = Vue
 createApp({
   data() {
     return {
+    	loading: true,
+    	geolocationActivated: false,
       locations: []
     }
   },
@@ -53,11 +55,41 @@ createApp({
 
     getLocations().then(locations => {
       this.locations = locations;
+      this.sortDefault();
       display(locations);
+      this.loading = false;
     });
+
+		this.geolocationActivated = "geolocation" in navigator;
   },
 
   methods: {
+  	geolocate() {
+  		this.loading = true;
+
+			navigator.geolocation.getCurrentPosition(position => {
+		  	this.zoomOnLocation(position.coords.latitude, position.coords.longitude)
+		  	this.reorderLocations(position.coords.latitude, position.coords.longitude);
+		  	this.loading = false;
+			});
+  	},
+
+  	sortDefault() {
+  		const sorted = {firsts: [], others: []};
+
+  		for (const location of this.locations) {
+  			if (location.link) {
+  				sorted.firsts.push(location);
+  			} else {
+  				sorted.others.push(location);
+  			}
+  		}
+
+			sorted.others.sort((a, b) => a.departmentNumber > b.departmentNumber ? 1 : -1);
+
+			this.locations = [...sorted.firsts, ...sorted.others];
+  	},
+
   	reorderLocations(lat, lng) {
   		this.locations.map(location => {
   			if (location.location) {
@@ -76,16 +108,22 @@ createApp({
   		});
   	},
 
+  	zoomOnLocation(lat, lng) {
+  		map.setView([lat, lng], 10);
+  	},
+
   	locationSelected(event, location) {
   		event.preventDefault();
 
   		if (location.location) {
   			map.setView([location.location[1], location.location[0]], 16);
+  		} else if (location.link) {
+  			window.open(location.link);
   		}
   	},
 
   	initAddressAutocomplete() {
-		new Autocomplete("search", {
+			new Autocomplete("search", {
 	  		selectFirst: true,
 	  		howManyCharacters: 2,
 
@@ -101,39 +139,48 @@ createApp({
 	        			.catch((error) => {
 	          				console.error(error);
 	        			});
-	    	});
-	  	},
+	    		});
+	  		},
 
-	  	onResults: ({ currentValue, matches, template }) => {
-	    	const regex = new RegExp(currentValue, "gi");
+		  	onResults: ({ currentValue, matches, template }) => {
+		    	const regex = new RegExp(currentValue, "gi");
 
-	    	return matches === 0
-	      		? template
-	      		: matches.map((element) => {
-	            	return `
-	          			<li>
-	            			<p>
-	              				${element.properties.display_name.replace(regex, (str) => `<b>${str}</b>`)}
-	            			</p>
-	          			</li> `;
-	          	})
-	          	.join("");
-	  	},
+		    	return matches === 0
+		      		? template
+		      		: matches.map((element) => {
+		            	return `
+		          			<li>
+		            			<p>
+		              				${element.properties.display_name.replace(regex, (str) => `<b>${str}</b>`)}
+		            			</p>
+		          			</li> `;
+		          	})
+		          	.join("");
+		  	},
 
-		onSubmit: ({ object }) => {
-			const [lng, lat] = object.geometry.coordinates;
-			map.setView([lat, lng], 10);
-			this.reorderLocations(lat, lng);
-		},
+				onSubmit: ({ object }) => {
+					const [lng, lat] = object.geometry.coordinates;
+					this.zoomOnLocation(lat, lng);
+					this.reorderLocations(lat, lng);
+				},
 
-	  	noResults: ({ currentValue, template }) =>
-	    	template(`<li>Aucun résultat pour : "${currentValue}"</li>`),
-		});
-	}
+	  		noResults: ({ currentValue, template }) => template(`<li>Aucun résultat pour : "${currentValue}"</li>`),
+
+	  		onReset: () => {
+	  			this.locations.map(location => {
+	  				location.distance = undefined;
+
+	  				return location;
+	  			});
+
+	  			this.sortDefault();
+	  		},
+			});
+		}
   }
 }).mount('#main-container')
 
-function distance(lat1, lon1, lat2, lon2) {
+const distance = (lat1, lon1, lat2, lon2) => {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
   var dLon = deg2rad(lon2-lon1); 
@@ -144,9 +191,10 @@ function distance(lat1, lon1, lat2, lon2) {
     ; 
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   var d = R * c; // Distance in km
+
   return d;
 }
 
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
+const deg2rad = (deg) => {
+  return deg * (Math.PI / 180)
 }
