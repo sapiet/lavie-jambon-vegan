@@ -6,4 +6,7 @@ import 'dotenv/config'
 export default defineConfig({
   plugins: [vue()],
   base: `${process.env.BASE_URL || ''}`,
+  build: {
+    outDir: 'docs'
+  }
 })
