@@ -1,90 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>La Vie - Jambon Vegan</title>
+  <link rel="icon" href="favicon.png" sizes="192x192" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
   <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/css/autocomplete.min.css"
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/css/autocomplete.min.css"
   />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div id="main-container">
-    <div id="loader" v-if="loading" :class="{ start: start }">
-      <i class="fa-solid fa-circle-notch fa-spin" id="spinner"></i>
-    </div>
-
-    <div id="header">
-      <a href="">
-        <img width="97" height="58" src="https://www.laviefoods.com/wp-content/uploads/2021/10/logo-la-vie.svg">        
-      </a>
-
-      <a href="https://www.laviefoods.com/produits/jambons-vegetaux/" target="_blank" id="product-link">
-        <img src="product.jpg" height="58">
-      </a>
-    </div>
-
-    <div id="page-container">
-      <div id="aside">
-        <div id="search-container">
-          <div class="auto-search-wrapper">
-            <input
-              type="text"
-              autocomplete="off"
-              id="search"
-              class="full-width"
-              placeholder="Chercher par ville"
-            />
-          </div>
-
-          <button id="geolocate-me" type="button" v-if="geolocationActivated" @click="geolocate">
-            <i class="fa-solid fa-location-crosshairs"></i>
-          </button>
-        </div>
-
-        <div class="locations-shadow-container top"></div>
-
-        <div id="locations">
-          <a href="#" @click="locationSelected($event, location)" v-for="location in locations" class="location">
-            <div>
-              {{ location.name }}
-
-              <div class="location-details">
-                <span v-if="location.link">
-                  Visiter le site web
-                </span>
-
-                <span v-else>
-                  {{ location.departmentNumber.toString().length === 1 ? '0' : '' }}{{ location.departmentNumber }} -
-                  {{ location.city }}
-                </span>
-              </div>
-            </div>
-
-            <div class="location-distance" v-if="location.distance">
-              {{ location.distance.toLocaleString() }} km
-            </div>
-          </a>
-        </div>
-
-        <div class="locations-shadow-container bottom"></div>
-      </div>
-
-      <div id="map"></div>    
-    </div>
-  </div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-  <script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/js/autocomplete.min.js"></script>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script type="text/javascript" src="app.js"></script>
+<div id="app"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/autocomplete@1.8.3/dist/js/autocomplete.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="module" src="/src/main.js"></script>
 </body>
 </html>
