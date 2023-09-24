@@ -43,6 +43,7 @@ const { createApp, ref } = Vue
 createApp({
   data() {
     return {
+    	start: true,
     	loading: true,
     	geolocationActivated: false,
       locations: []
@@ -58,6 +59,7 @@ createApp({
       this.sortDefault();
       display(locations);
       this.loading = false;
+      this.start = false;
     });
 
 		this.geolocationActivated = "geolocation" in navigator;

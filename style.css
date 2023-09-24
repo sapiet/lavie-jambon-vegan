@@ -21,6 +21,10 @@ html, body {
     background-color: rgba(255, 255, 255, .8);
 }
 
+#loader.start {
+    background-color: white;
+}
+
 #spinner {
     color: #b1d4f0;
     font-size: 64px;
@@ -74,6 +78,26 @@ html, body {
     border-radius: 10px;
 }
 
+.locations-shadow-container {
+    position: relative;
+}
+
+.locations-shadow-container::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 100%;
+}
+
+.locations-shadow-container.top::after {
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(177,212,240,1) 100%);
+}
+
+.locations-shadow-container.bottom::after {
+    top: -20px;
+    background: linear-gradient(0deg, rgba(177,212,240,1) 0%, rgba(0,0,0,0) 100%);
+}
+
 #locations {
     overflow: auto;
 }
@@ -88,6 +112,10 @@ html, body {
     font-size: 18px;
     color: #0a0a0a;
     text-decoration: none;
+}
+
+.location:last-child {
+    margin-bottom: 20px;
 }
 
 .location-details {
@@ -114,12 +142,12 @@ html, body {
     }
 
     #aside {
-        height: calc(55vh - 39px);
+        height: calc(50vh - 39px);
         width: 100%;
     }
 
     #map {
-        height: calc(45vh - 39px);
+        height: calc(50vh - 39px);
         width: 100%;
     }
 }

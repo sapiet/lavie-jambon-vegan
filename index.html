@@ -16,7 +16,7 @@
 </head>
 <body>
   <div id="main-container">
-    <div id="loader" v-if="loading">
+    <div id="loader" v-if="loading" :class="{ start: start }">
       <i class="fa-solid fa-circle-notch fa-spin" id="spinner"></i>
     </div>
 
@@ -48,6 +48,8 @@
           </button>
         </div>
 
+        <div class="locations-shadow-container top"></div>
+
         <div id="locations">
           <a href="#" @click="locationSelected($event, location)" v-for="location in locations" class="location">
             <div>
@@ -70,6 +72,8 @@
             </div>
           </a>
         </div>
+
+        <div class="locations-shadow-container bottom"></div>
       </div>
 
       <div id="map"></div>    
