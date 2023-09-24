@@ -73,6 +73,8 @@ createApp({
 		  	this.zoomOnLocation(position.coords.latitude, position.coords.longitude)
 		  	this.reorderLocations(position.coords.latitude, position.coords.longitude);
 		  	this.loading = false;
+			}, error => {
+				this.loading = false;
 			});
   	},
 
