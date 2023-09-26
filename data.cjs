@@ -46,6 +46,7 @@ const handle = async items => {
     }
 
     fs.writeFileSync('public/locations.json', JSON.stringify(output));
+    fs.writeFileSync('docs/locations.json', JSON.stringify(output));
     progress.stop();
 }
 
