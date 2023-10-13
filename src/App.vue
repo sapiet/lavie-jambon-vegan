@@ -44,7 +44,7 @@
                 </span>
 
               <span v-else>
-                  {{ location.departmentNumber.toString().length === 1 ? '0' : '' }}{{ location.departmentNumber }} -
+                  {{ location.departmentNumber && location.departmentNumber.toString().length === 1 ? '0' : '' }}{{ location.departmentNumber }} -
                   {{ location.city }}
                 </span>
             </div>
