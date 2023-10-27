@@ -4,7 +4,8 @@ const PublicGoogleSheetsParser = require('public-google-sheets-parser')
 const cliProgress = require('cli-progress');
 require('dotenv').config({ path: `.env.data`});
 
-const spreadsheetId = '1-bkow6bkqCSSgEeWeV9x-ZgOImEDx4JlojIumZLRLRA'
+const spreadsheetId = '1-bkow6bkqCSSgEeWeV9x-ZgOImEDx4JlojIumZLRLRA';
+const sheet = 'LISTE COMPLETE';
 
 const links = {
     'Official Vegan Shop': 'https://www.officialveganshop.com'
@@ -71,8 +72,10 @@ const test = async () => {
 }
 
 if (true) {
-    const parser = new PublicGoogleSheetsParser(spreadsheetId)
-    parser.parse().then(items => handle(items))
+    const parser = new PublicGoogleSheetsParser(spreadsheetId, sheet)
+    parser.parse().then(items => {
+        handle(items)
+    })
 } else {
     test()
 }
