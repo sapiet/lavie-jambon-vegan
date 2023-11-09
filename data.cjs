@@ -68,10 +68,11 @@ const searchLocation = async location => {
 const makeUrl = location => `https://maps.googleapis.com/maps/api/geocode/json?address=${location.split(' ').join('+')}&region=fr&key=${process.env.GOOGLE_API_TOKEN}`;
 
 const test = async () => {
-    console.log(await searchLocation('Super U Pripiac'));
+    console.log(await searchLocation('The Good Place Montpellier'));
+    // console.log(await searchLocation('Super U Pripiac'));
 }
 
-if (true) {
+if (false) {
     const parser = new PublicGoogleSheetsParser(spreadsheetId, sheet)
     parser.parse().then(items => {
         handle(items)
